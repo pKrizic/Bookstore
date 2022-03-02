@@ -1,0 +1,31 @@
+﻿Module Bookstore{
+	Entity Employee{
+		ShortString Name{Required;}
+		ShortString VATNumber{Unique; Required;}
+	}
+
+	Entity Manager{
+		Extends Bookstore.Employee;
+
+		ShortString Bonus{Required;}
+	}
+
+	Entity Education{
+		Date Date {Required;}
+		LongString Description {Required;}
+
+		Reference Employee;
+	}
+
+	Entity Department{
+		ShortString Code {Unique; Required;}
+		LongString Description {Required;}
+	}
+
+	Entity EmployeeDepartment{
+		Reference Employee {Detail;}
+		Reference Department {Required;}
+
+		UniqueMultiple 'Employee Department';
+	}
+}
