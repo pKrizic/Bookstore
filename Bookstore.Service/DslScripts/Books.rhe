@@ -10,10 +10,14 @@
 		ItemFilter CommonMisspelling 'book => book.Title.Contains("curiousity")';
 		InvalidData CommonMisspelling 'It is not allowed to enter misspelled word "curiousity".';
 
+		ItemFilter ContainsLockMark 'book => book.Title.Contains("lock")';
+		Lock ContainsLockMark '[Test] Name contains lock mark.';
+
 		Logging;
 	}
 	
 	Entity Person{
+		Deactivatable;
 		ShortString Name;
 	}
 
@@ -22,6 +26,8 @@
 			Detail;
 		}
 		LongString Text;
+		DateTime Created {CreationTime;}
+		DateTime Modified {ModificationTimeOf Bookstore.Comment.Text;}
 	}
 
 	Entity ChildrensBook{
