@@ -55,6 +55,80 @@
 
 		UniqueMultiple 'Book Topic';
 	}
+
+	Browse BookGrid Bookstore.Book
+	{
+		Take Code;
+		Take Title;
+		Take 'Author.Name';
+		Take TranslatorName 'Extension_ForeignBook.Translator.Name';
+		Take NumberOfComments 'Extension_BookInfo.NumberOfComments';
+	}
+
+	SqlQueryable BookInfo <SQL\BookInfo.sql>
+	//"
+	//	SELECT
+	//		b.ID,
+	//		NumberOfComments = COUNT(c.ID)
+	//	FROM 
+	//		Bookstore.Book b
+	//		LEFT JOIN Bookstore.Comment c on c.BookID = b.ID
+	//	GROUP BY 
+	//		b.ID
+	//"
+	{
+		Extends Bookstore.Book;
+		Integer NumberOfComments;
+
+		AutodetectSqlDependencies;
+	}
+
+	SqlQueryable BookTopicInfo <SQL\BookTopicInfo.sql>
+	{
+		Extends Bookstore.Book;
+		Integer NumberOfTopics;
+	}
+
+	Browse BookDetailsGrid Bookstore.Book{
+		Take BookName 'Title';
+		Take 'Author.Name';
+		Take NumberOfTopic 'Extension_BookTopicInfo.NumberOfTopics';
+	}
+
+	Action InsertManyBooks
+		'(parameter, repository, userInfo) =>
+		{
+			for (int i = 0; i < parameter.NumberOfBooks; i++)
+			{
+				var newBook = new Bookstore.Book { Code = "+++", Title = parameter.TitlePrefix };
+				repository.Bookstore.Book.Insert(newBook);
+			}
+		}'
+	{
+		Integer NumberOfBooks;
+		ShortString TitlePrefix;
+	}
+
+	Hardcoded Genre
+	{
+		ShortString Label;
+		LongString Description;
+		Bool IsFiction;
+
+		Entry ScienceFiction
+		{
+			Value Label 'Science fiction';
+			Value Description 'A speculative fiction with imagined elements that are inspired by natural sciences or social sciences.';
+			Value IsFiction 1;
+		}
+
+		Entry Biography
+		{
+			Value Label 'Biography';
+			Value Description 'A written narrative of a person''s life.';
+			Value IsFiction 0;
+		}
+	}
 }
 
 //Module Bookstore;
