@@ -2,9 +2,12 @@
 {
 	Entity Book
 	{
+		Deactivatable {DeactivateOnDelete;}
+
 		ShortString Code {AutoCode;}
 		ShortString Title;
 		Integer NumberOfPages;
+		
 		Reference Author Bookstore.Person;
 
         ItemFilter LongBooks 'item => item.NumberOfPages >= 500';
@@ -80,16 +83,16 @@
         Reference Book { Required; }
         Integer Score { Required; MinValue 1; MaxValue 5; }
         LongString Text;
-		DateTime LastModifiedTime;
+		DateTime LastModifiedTime {LastModifiedTime;}
 
-		SaveMethod
-		{
-			Initialization DefaultTextFromScore
-				'
-					foreach (var item in updatedNew)
-						item.LastModifiedTime = DateTime.UtcNow;
-				';
-		}
+		//SaveMethod
+		//{
+		//	Initialization DefaultTextFromScore
+		//		'
+		//			foreach (var item in updatedNew)
+		//				item.LastModifiedTime = DateTime.UtcNow;
+		//		';
+		//}
     }
 
 	Entity Disposal
@@ -112,6 +115,7 @@
 	Entity Person{
 		Deactivatable;
 		ShortString Name;
+		PhoneNumber MobileNumber;
 	}
 
 	Entity Comment{
