@@ -29,7 +29,7 @@
 		Date Date {Required;}
 		LongString Description {Required;}
 
-		Reference Employee;
+		Reference Employee {Detail;}
 	}
 
 	Entity Department{
