@@ -165,6 +165,24 @@
 		Integer NumberOfTopics;
 	}
 
+	SqlView BookWithoutAuthors <SQL\BookWithoutAuthor.sql>
+	{
+		AutoDetectSqlDependencies;
+	}
+
+	SqlQueryable BookWithoutAuthorsInfo 
+	"
+		SELECT
+			b.ID,
+			b.Title
+		FROM Bookstore.BookWithoutAuthors b
+	"
+	{
+		Extends Bookstore.Book;
+		ShortString Title;
+	}
+
+
 	Browse BookDetailsGrid Bookstore.Book{
 		Take BookName 'Title';
 		Take 'Author.Name';
