@@ -75,6 +75,23 @@
         Bool MaskTitles;
     }
 
+	Entity Review
+    {
+        Reference Book { Required; }
+        Integer Score { Required; MinValue 1; MaxValue 5; }
+        LongString Text;
+		DateTime LastModifiedTime;
+
+		SaveMethod
+		{
+			Initialization DefaultTextFromScore
+				'
+					foreach (var item in updatedNew)
+						item.LastModifiedTime = DateTime.UtcNow;
+				';
+		}
+    }
+
 	Entity Disposal
     {
         Reference Book { Required; }
