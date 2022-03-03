@@ -74,6 +74,23 @@
         Bool ForeignBooksOnly;
         Bool MaskTitles;
     }
+
+	Entity Disposal
+    {
+        Reference Book { Required; }
+        LongString Explanation { Required; }
+        DateTime EffectiveSince { CreationTime; }
+
+		ItemFilter ImportantBookExplanation "item => item.Book.Title.Contains(""important"") && item.Explanation.Length < 50";
+		InvalidData ImportantBookExplanation 'When disposing an important book, the explanation should be at least 50 characters long.';
+
+    }
+
+    Entity BookRating
+    {
+        Extends Bookstore.Book;
+        Decimal Rating; // ComputedFrom Bookstore.ComputeBookRating
+    }
 	
 	Entity Person{
 		Deactivatable;
