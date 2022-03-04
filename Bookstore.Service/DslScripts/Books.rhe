@@ -9,6 +9,7 @@
 		Integer NumberOfPages;
 		
 		Reference Author Bookstore.Person;
+		Reference AssignedTo Bookstore.Employee;
 
         ItemFilter LongBooks 'item => item.NumberOfPages >= 500';
 
@@ -57,6 +58,19 @@
 
 		ItemFilter ContainsLockMark 'book => book.Title.Contains("lock")';
 		Lock ContainsLockMark '[Test] Name contains lock mark.';
+
+		RowPermissions
+		{
+			AllowRead EveryoneCanRead 'context => 
+			{
+				return book => true;
+			}';
+
+			AllowWrite CanWrite 'context => 
+			{
+				return book => book.AssignedTo.UserName == context.UserInfo.UserName;
+			}';
+		}
 
 		Logging;
 	}
@@ -125,6 +139,12 @@
 		LongString Text;
 		DateTime Created {CreationTime;}
 		DateTime Modified {ModificationTimeOf Bookstore.Comment.Text;}
+
+		RowPermissions
+		{
+			InheritFrom Bookstore.Comment.Book;
+		}
+		
 	}
 
 	Entity ChildrensBook{
