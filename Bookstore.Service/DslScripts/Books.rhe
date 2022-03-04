@@ -1,5 +1,10 @@
 ﻿Module Bookstore
 {
+	Polymorphic BookDescription
+	{
+		ShortString Description;
+	}
+
 	Entity Book
 	{
 		Deactivatable {DeactivateOnDelete;}
@@ -10,6 +15,12 @@
 		
 		Reference Author Bookstore.Person;
 		Reference AssignedTo Bookstore.Employee;
+
+		Is Bookstore.BookDescription
+		{
+			Implements Bookstore.BookDescription.Description "Title + '' + (SELECT a.Name FROM Bookstore.Person a WHERE a.ID = AuthorID)";
+			Where 'AuthorID is not null';
+		}
 
         ItemFilter LongBooks 'item => item.NumberOfPages >= 500';
 

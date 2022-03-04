@@ -93,6 +93,7 @@
     <Content Include="ConnectionStrings.config" />
     <Content Include="DslScripts\Books.rhe" />
     <Content Include="DslScripts\Employees.rhe" />
+    <Content Include="DslScripts\Demo.rhe" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
