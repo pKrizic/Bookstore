@@ -6,6 +6,11 @@
         Money Amount;
     }
 
+    Entity TestCodeTable{
+        CodeTable;
+        MonitoredRecord;
+    }
+
     Entity BorrowMoney
     {
         ShortString FromWhom;

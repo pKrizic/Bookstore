@@ -48,6 +48,7 @@
     <Compile Include="DeactivateOnDeleteInfo .cs" />
     <Compile Include="LastModifiedTimeInfo.cs" />
     <Compile Include="LastModifiedTimeCodeGenerator.cs" />
+    <Compile Include="MonitoredRecordInfo.cs" />
     <Compile Include="PhoneNumberInfo.cs" />
     <Compile Include="PhoneNumberMacro.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

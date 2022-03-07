@@ -9,9 +9,6 @@ namespace Bookstore.RhetosExtensions
     public class CodeTableInfo : IConceptInfo
     {
         [ConceptKey]
-        public ShortStringPropertyInfo Code { get; set; }
-
-        [ConceptKey]
-        public RequiredPropertyInfo Name { get; set; }
+        public EntityInfo Entity { get; set; }
     }
 }
