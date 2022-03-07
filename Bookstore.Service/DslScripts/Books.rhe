@@ -193,7 +193,7 @@
 		Take NumberOfComments 'Extension_BookInfo.NumberOfComments';
 	}
 
-	SqlQueryable BookInfo <SQL\BookInfo.sql>
+	SqlQueryable ComputeBookInfo <SQL\BookInfo.sql>
 	//"
 	//	SELECT
 	//		b.ID,
@@ -208,8 +208,17 @@
 		Extends Bookstore.Book;
 		Integer NumberOfComments;
 
-		AutodetectSqlDependencies;
+        ChangesOnLinkedItems Bookstore.Comment.Book;
 	}
+
+    Entity BookInfo
+    {
+        ComputedFrom Bookstore.ComputeBookInfo
+        {
+            AllProperties;
+            KeepSynchronized;
+        }
+    }
 
 	SqlQueryable BookTopicInfo <SQL\BookTopicInfo.sql>
 	{
